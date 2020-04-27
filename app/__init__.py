@@ -15,5 +15,9 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
 
     from app import models
+    
+    from app.errors import bp as errors_bp
+
+    app.register_blueprint(errors_bp)
 
     return app
