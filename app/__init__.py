@@ -20,4 +20,7 @@ def create_app(config_class=Config):
 
     app.register_blueprint(errors_bp)
 
+    from app.stats import bp as stats_bp
+    app.register_blueprint(stats_bp)
+
     return app
