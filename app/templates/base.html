@@ -10,6 +10,8 @@
 		{% endif %}
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		<script defer src="{{ url_for('static', filename='js/solid.js') }}"></script>
+		<script defer src="{{ url_for('static', filename='js/fontawesome.js')}}"></script>
 	</head>
 	<body>
 		<!-- Sidebar -->
@@ -17,26 +19,44 @@
 			<div id="sidebar">
 				<div class="sidebar-header">
 					<h3>GuardOculus</h3>
+					<strong><i class="fas fa-chess"></i></strong>
 				</div>
 				<ul class="list-unstyled components">
-					<p>Меню</p>
 					<li>
-						<a href="{{ url_for('stats.index') }}">Статистика</a>
+						<a href="{{ url_for('stats.index') }}">
+							<i class="fas fa-chart-area"></i>
+							<span>Статистика</span>
+						</a>
 					</li>
 					<li>
-						<a href="#">Карта</a>
+						<a href="#">
+							<i class="fas fa-map"></i>
+							<span>Карта<span>
+						</a>
 					</li>
 					<li>
-						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Администрирование</a>
+						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-wrench"></i>
+							<span>Администрирование</span>
+						</a>
 						<ul class="collapse list-unstyled" id="homeSubmenu">
 							<li>
-								<a href="#">Пользователи</a>
+								<a href="#">
+									<i class="fas fa-user-ninja"></i>
+									<span>Пользователи</span>
+								</a>
 							</li>
 							<li>
-								<a href="#">Помещения</a>
+								<a href="#">
+									<i class="fas fa-building"></i>
+									<span>Помещения</span>
+								</a>
 							</li>
 							<li>
-								<a href="#">Камеры</a>
+								<a href="#">
+									<i class="fas fa-camera"></i>
+									<span>Камеры</span>
+								</a>
 							</li>
 						</ul>
 					</li>
@@ -65,6 +85,7 @@
 			$(document).ready(function () {
 				$('#sidebarCollapse').on('click', function () {
 					$('#sidebar').toggleClass('active');
+					$('#content').toggleClass('active');
 				});
 			});
 		</script>
