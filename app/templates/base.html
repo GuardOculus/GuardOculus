@@ -21,6 +21,26 @@
 					<h3>GuardOculus</h3>
 					<strong><i class="fas fa-chess"></i></strong>
 				</div>
+				{% if not current_user.is_anonymous %}
+				<ul class="list-unstyled components">
+					<li class="ml-2">
+						<h3>
+							{% if current_user.role == 0 %}
+							<i class="fas fa-user-cog"></i>
+							{% else %}
+							<i class="fas fa-user-shield"></i>
+							{% endif %}
+							<span>{{ current_user.username }}</span>
+						</h3>
+					</li>
+					<li>
+						<a href="{{ url_for('auth.logout') }}">
+							<i class="fas fa-sign-out-alt"></i>
+							<span>Выйти</span>
+						</a>
+					</li>
+				</ul>
+				{% endif %}
 				<ul class="list-unstyled components">
 					{% if current_user.is_anonymous %}
 					<li>

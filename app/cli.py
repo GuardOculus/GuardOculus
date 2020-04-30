@@ -11,12 +11,17 @@ def register(app):
         pass
 
     @user.command()
-    @click.argument("username")
-    @click.argument("password")
-    @click.argument("role")
+    @click.option("-u", "--username")
+    @click.option("-p", "--password")
+    @click.option("-r", "--role", type=click.IntRange(0, 1))
     def create(username, password, role):
         new_user = User(username=username, role=int(role))
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
-        click.echo('User created', color='green')
+        click.echo('User created')
+
+    @user.command()
+    def list():
+        for user in User.query.fetchall():
+            click.echo(user.username, user.role)
