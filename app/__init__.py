@@ -18,6 +18,7 @@ def create_app(config_class=Config):
     login.init_app(app)
 
     login.login_view = 'auth.login'
+    login.login_message = "Авторизутесь чтобы продолжить"
 
     from app import models
     
