@@ -22,6 +22,14 @@
 					<strong><i class="fas fa-chess"></i></strong>
 				</div>
 				<ul class="list-unstyled components">
+					{% if current_user.is_anonymous %}
+					<li>
+						<a href="{{ url_for('auth.login') }}">
+							<i class="fas fa-door-open"></i>
+							<span>Войти</span>
+						</a>
+					</li>
+					{% else %}
 					<li>
 						<a href="{{ url_for('stats.index') }}">
 							<i class="fas fa-chart-area"></i>
@@ -34,6 +42,7 @@
 							<span>Карта<span>
 						</a>
 					</li>
+					{% if current_user.role == 0 %}
 					<li>
 						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 							<i class="fas fa-wrench"></i>
@@ -60,7 +69,8 @@
 							</li>
 						</ul>
 					</li>
-					
+					{% endif %}
+					{% endif %}
 				</ul>
 			</div>
 			<div id="content">
@@ -72,6 +82,14 @@
 						</button>
 					</div>
 				</nav>
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages %}
+						<div class="alert alert-danger" role="alert">{{ message }}</div>
+					{% endfor %}
+				{% endif %}
+				{% endwith %}
+
 				{% block content %}
 				{% endblock %}
 			</div>
