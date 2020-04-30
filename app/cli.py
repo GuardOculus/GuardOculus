@@ -23,5 +23,7 @@ def register(app):
 
     @user.command()
     def list():
-        for user in User.query.fetchall():
-            click.echo(user.username, user.role)
+        click.echo("Username\t│Role")
+        click.echo("────────────────┼─────")
+        for user in User.query.all():
+            click.echo(user.username + "\t\t│" + ("admin" if user.role == 0 else "guard"))
