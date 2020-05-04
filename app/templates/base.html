@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% if title %}
+			<title>{{ title }}</title>
+		{% else %}
+			<title>GuardOculus</title>
+		{% endif %}
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		<script defer src="{{ url_for('static', filename='js/solid.js') }}"></script>
+		<script defer src="{{ url_for('static', filename='js/fontawesome.js')}}"></script>
+	</head>
+	<body>
+		<!-- Sidebar -->
+		<div class="wrapper">
+			<div id="sidebar">
+				<div class="sidebar-header">
+					<h3>GuardOculus</h3>
+					<strong><i class="fas fa-chess"></i></strong>
+				</div>
+				{% if not current_user.is_anonymous %}
+				<ul class="list-unstyled components">
+					<li class="ml-2">
+						<h3>
+							{% if current_user.role == 0 %}
+							<i class="fas fa-user-cog"></i>
+							{% else %}
+							<i class="fas fa-user-shield"></i>
+							{% endif %}
+							<span>{{ current_user.username }}</span>
+						</h3>
+					</li>
+					<li>
+						<a href="{{ url_for('auth.logout') }}">
+							<i class="fas fa-sign-out-alt"></i>
+							<span>Выйти</span>
+						</a>
+					</li>
+				</ul>
+				{% endif %}
+				<ul class="list-unstyled components">
+					{% if current_user.is_anonymous %}
+					<li>
+						<a href="{{ url_for('auth.login') }}">
+							<i class="fas fa-door-open"></i>
+							<span>Войти</span>
+						</a>
+					</li>
+					{% else %}
+					<li>
+						<a href="{{ url_for('stats.index') }}">
+							<i class="fas fa-chart-area"></i>
+							<span>Статистика</span>
+						</a>
+					</li>
+					<li>
+						<a href="{{ url_for('map.index') }}">
+							<i class="fas fa-map"></i>
+							<span>Карта<span>
+						</a>
+					</li>
+					{% if current_user.role == 0 %}
+					<li>
+						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-wrench"></i>
+							<span>Администрирование</span>
+						</a>
+						<ul class="collapse list-unstyled" id="homeSubmenu">
+							<li>
+								<a href="#">
+									<i class="fas fa-user-ninja"></i>
+									<span>Пользователи</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fas fa-building"></i>
+									<span>Помещения</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fas fa-camera"></i>
+									<span>Камеры</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					{% endif %}
+					{% endif %}
+				</ul>
+			</div>
+			<div id="content">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<div class="container-fluid">
+						<button type="button" id="sidebarCollapse" class="btn btn-info">
+							<i class="fas fa-align-left"></i>
+							<span>Toggle sidebar</span>
+						</button>
+					</div>
+				</nav>
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages %}
+						<div class="alert alert-danger" role="alert">{{ message }}</div>
+					{% endfor %}
+				{% endif %}
+				{% endwith %}
+
+				{% block content %}
+				{% endblock %}
+			</div>
+		</div>
+
+		<!-- Javascript -->
+		<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+		<script>
+			$(document).ready(function () {
+				$('#sidebarCollapse').on('click', function () {
+					$('#sidebar').toggleClass('active');
+					$('#canvas').trigger('switchSidebar');
+					$('#content').toggleClass('active');
+				});
+			});
+		</script>
+		{% block javascript %}
+		{% endblock %}
+	</body>
+</html>

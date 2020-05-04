@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<canvas height="300" width="600" id="canvas"></canvas>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+{% endblock %}
