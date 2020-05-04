@@ -35,4 +35,7 @@ def create_app(config_class=Config):
     from app.api import bp as api_bp
     app.register_blueprint(api_bp)
 
+    from app.map import bp as map_bp
+    app.register_blueprint(map_bp)
+
     return app
