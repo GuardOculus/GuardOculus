@@ -5,5 +5,5 @@ from app.map import bp
 
 
 @bp.route('/map')
-def map_():
+def index():
     return render_template('map.html')

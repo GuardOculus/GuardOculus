@@ -57,7 +57,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="{{ url_for('map.index') }}">
 							<i class="fas fa-map"></i>
 							<span>Карта<span>
 						</a>
@@ -123,9 +123,12 @@
 			$(document).ready(function () {
 				$('#sidebarCollapse').on('click', function () {
 					$('#sidebar').toggleClass('active');
+					$('#canvas').trigger('switchSidebar');
 					$('#content').toggleClass('active');
 				});
 			});
 		</script>
+		{% block javascript %}
+		{% endblock %}
 	</body>
 </html>
